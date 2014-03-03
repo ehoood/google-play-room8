@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#FFF9C8">
+	        
+	<RelativeLayout
+	    android:id="@+id/toplayout"
+	    android:background="@drawable/notetop"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:paddingBottom="5dp"
+	    android:paddingLeft="5dp"
+	    android:paddingTop="5dp" >
+		
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="18sp" 
+			android:text="title"
+			android:id="@+id/sticky_title_text1" />					
+		<EditText android:id="@+id/sticky_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="18sp"    
+		    android:hint="no_title"
+		    android:layout_toRightOf="@+id/sticky_title_text1" 
+		    android:background="@android:color/transparent" 	
+		    android:layout_marginLeft="5dp"	
+			android:singleLine="true"
+			android:imeOptions="actionNext"/>
+		
+	</RelativeLayout>
+
+	<view
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/sticky_body"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/toplayout"
+	    class="com.example.sticky_notes.LineEditText"
+	    android:background="@android:color/transparent"
+	    android:inputType="textMultiLine"
+	    android:imeOptions="actionNone"
+	    android:fadingEdge="vertical"
+	    android:gravity="top"
+	    android:padding="5dp"
+	    android:scrollbars="vertical"
+	    android:textSize="22sp" />
+</RelativeLayout>

@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/artleo_com_8105"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <!-- Email Label -->
+
+    <ImageView
+        android:id="@+id/main_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="25dip"
+        android:background="@drawable/main_backround_big"
+        android:contentDescription="@string/mainTitle" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:text="@string/email"
+        android:textColor="#c27507" />
+
+    <EditText
+        android:id="@+id/editTextEmailLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/rounded_edit_text"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:singleLine="true" />
+    <!-- Password Label -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textColor="#c27507" />
+
+    <EditText
+        android:id="@+id/editTextPasswordLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/rounded_edit_text"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:singleLine="true" />
+    <!-- Login button -->
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dip"
+        android:background="@android:color/transparent"
+        android:text="@string/login"
+        android:textColor="#c27507"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <!-- Link to Registration Screen -->
+
+    <TextView
+        android:id="@+id/link_to_register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dip"
+        android:layout_marginTop="40dip"
+        android:gravity="center"
+        android:text="@string/New_to_Room8"
+        android:textColor="#c27507"
+        android:textSize="20sp" />
+    <!-- Login Form Ends -->
+
+</LinearLayout>

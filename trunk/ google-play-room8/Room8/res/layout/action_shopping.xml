@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/actionbar_bg"
+    android:orientation="vertical" >
+
+    <ImageButton
+        android:id="@+id/addGroceryListBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/pressed_style"
+        android:contentDescription="@string/add_shopping_list"
+        android:src="@drawable/ic_5_content_new" />
+
+    <ImageButton
+        android:id="@+id/home_btn_shopping"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/pressed_style"
+        android:contentDescription="@string/go_home"
+        android:src="@drawable/home_btn" />
+
+</RelativeLayout>

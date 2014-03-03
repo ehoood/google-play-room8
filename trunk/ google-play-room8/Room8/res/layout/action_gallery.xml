@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/actionbar_bg" >
+
+    <ImageButton
+        android:id="@+id/gallery_camBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/camera_icon" />
+
+    <ImageButton
+        android:id="@+id/gallery_editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="53dp"
+        android:background="@drawable/pressed_style"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_5_content_edit"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/gallery_deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="53dp"
+        android:background="@drawable/pressed_style"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="invisible" 
+        android:src="@drawable/ic_5_content_discard" />
+
+    <ImageButton
+        android:id="@+id/home_btn_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/home_btn" />
+
+</RelativeLayout>

@@ -1,0 +1,245 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Bill_Information_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="30dp"
+    tools:context=".Edit_new_billActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/statusView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/status" />
+
+        <RadioGroup
+            android:id="@+id/billStatusRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/statusPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/billPaid" />
+
+            <RadioButton
+                android:id="@+id/statusUnpaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:layout_marginLeft="30dp"
+                android:checked="true"
+                android:text="@string/billUnpaid" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/amountView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/amount" />
+
+        <EditText
+            android:id="@+id/editAmount"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:inputType="number"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/perRoommateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/per_roomie" />
+
+        <EditText
+            android:id="@+id/amountPerRoomie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="numberDecimal"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/paymentDateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/paymentDur" />
+
+        <EditText
+            android:id="@+id/editPaymentDuration"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="date"
+            android:lines="1"
+            android:onClick="onClickPaymentDate"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/editNumberOfMonths"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="@string/months"
+            android:textSize="12sp"
+            android:inputType="number"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/duedateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/duedate" />
+
+        <EditText
+            android:id="@+id/editDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="date"
+            android:lines="1"
+            android:onClick="onClickDueDate"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/PaidByView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/paidBy" />
+
+        <EditText
+            android:id="@+id/edit_paidByView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/created_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/create" />
+
+        <EditText
+            android:id="@+id/edit_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="text"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnPay"
+            android:layout_width="150dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dip"
+            android:layout_marginTop="10dip"
+            android:onClick="PayBtn"
+            android:text="@string/PAY" />
+    </LinearLayout>
+
+</LinearLayout>

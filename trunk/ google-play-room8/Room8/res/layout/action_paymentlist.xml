@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageButton
+        android:id="@+id/refreshPaymentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="106dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/home_refresh" />
+
+    <ImageButton
+        android:id="@+id/addPaymentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/ic_5_content_new" />
+
+    <ImageButton
+        android:id="@+id/deletePayemntBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/ic_5_content_discard" />
+
+</RelativeLayout>

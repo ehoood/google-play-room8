@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <AutoCompleteTextView
+        android:id="@+id/autocompletetextview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:hint="Enter a product" >
+    </AutoCompleteTextView>
+
+    <ImageButton
+        android:id="@+id/add_to_cart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_weight="1"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/cart_add" />
+
+    <ImageButton
+        android:id="@+id/menu_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_weight="1"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/ic_menu_save" />
+
+    <ImageButton
+        android:id="@+id/menu_delete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_weight="1"
+        android:background="@drawable/pressed_style"
+        android:src="@drawable/ic_5_content_discard" />
+
+</LinearLayout>

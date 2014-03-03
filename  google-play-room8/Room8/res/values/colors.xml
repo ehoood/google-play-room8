@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="holo_yellow"> #F5E582 </color>
+    <color name="nice_grey"> #60665F </color>
+    <color name="red"> #FF0000 </color>
+    <color name="green"> #00FF00 </color>
+    <color name="my_bluish_color"> #c27507 </color>
+    <color name="yellow_brown">#f8f0bf</color>
+    <color name="pale_blue">#959EAB</color>
+    <color name="bright_purple">#C3ACF2</color>
+
+</resources>

@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/bills"
+        android:icon="@drawable/bills_tab"
+        android:orderInCategory="0"
+        android:showAsAction="always"
+        android:title="@string/bills"/>
+    <item
+        android:id="@+id/shopping"
+        android:icon="@drawable/shopping_tab"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/shopping"/>
+    <item
+        android:id="@+id/budget"
+        android:icon="@drawable/budget_tab"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom"
+        android:title="@string/budget"/>
+    <item
+        android:id="@+id/schedule"
+        android:icon="@drawable/sticky_tab"
+        android:orderInCategory="3"
+        android:showAsAction="ifRoom"
+        android:title="@string/sticky"/>
+<item
+        android:id="@+id/gallery"
+        android:icon="@drawable/funzoneimg"
+        android:orderInCategory="4"
+        android:showAsAction="ifRoom"
+        android:title="@string/FunZone"/>
+    
+</menu>

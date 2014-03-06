@@ -129,7 +129,6 @@ public class RegistrationActivity extends Activity implements OnConfirmCancelLis
 					//save in usersAuthoirzed
 					ParseObject object = new ParseObject("usersAuthoirzed");
 					object.put("isConfirmed", isConfirmed);
-					object.put("IsHome", StaticVals.NotConnected); //init to 2 isHome - notConected
 					object.put("Apartment", editTextApartment.getText().toString());
 					object.put("Name", editTextName.getText().toString());
 					object.put("Email", editTextEmail.getText().toString());

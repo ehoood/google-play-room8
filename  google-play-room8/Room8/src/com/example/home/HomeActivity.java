@@ -13,6 +13,7 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -64,7 +65,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 	ArrayList<reqObj> requestsArr;
 	ActionBar actionBar;
 	TextView mReqNotification, mStickyNotification;
-	Handler mHandler;
+	static Handler mHandler;
 	String email_roommate;
 	int parseAmount; 
 	int res;
@@ -208,7 +209,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 						d.setMonth(monthparse - 1);
 						StringTokenizer strTok = new StringTokenizer(d.toGMTString(), " ");
 						strTok.nextToken(); //day
-						
+
 						parseAmount = objects.get(0).getInt("amount");
 						objects.get(0).put("amount", 0);
 						objects.get(0).put(strTok.nextToken(),parseAmount);
@@ -324,6 +325,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 						final HomeObj room8 = new HomeObj();
 						room8.name = user.getString("Name");
 						room8.window = R.drawable.window_dark;
+						room8.visibiltyProg = 0; //visible
 						ParseFile imgFile = (ParseFile)user.get("pic");
 						if (imgFile!=null)
 						{
@@ -338,24 +340,6 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 									} 
 								}
 							});
-						}
-
-						if((Integer)user.get("IsHome") == StaticVals.NotConnected)
-						{
-							room8.visibiltyProg = 0; //visible
-							Message msg = HomeActivity.this.mHandler.obtainMessage();
-							msg.what = StaticVals.NotConnected;
-							HomeActivity.this.mHandler.sendMessageDelayed(msg, 10000);
-						}
-						else if((Integer)user.get("IsHome") == StaticVals.inHome)
-						{
-							room8.visibiltyProg = 4; //invisible
-							room8.window = R.drawable.window;
-						}
-						else if((Integer)user.get("IsHome") == StaticVals.outHome)
-						{
-							room8.visibiltyProg = 4; //invisible
-							room8.window = R.drawable.window_dark;
 						}
 
 						SThome.getInstance().add(room8);
@@ -591,25 +575,10 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 
 	void setAllNotconnected()
 	{
-		ParseQuery<ParseObject> q = ParseQuery.getQuery("usersAuthoirzed");
-		q.whereEqualTo("isConfirmed", true);
-		q.whereEqualTo("Apartment", ParseUser.getCurrentUser().get("Apartment"));
-		List<ParseObject> objects;
-		try {
-			objects = q.find();
-			for(ParseObject user : objects)
-			{
-				user.put("IsHome", StaticVals.NotConnected);
-				try {
-					user.save();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for(HomeObj room8 : SThome.getInstance())
+		{
+			room8.visibiltyProg = 0; //visible
+			room8.window = room8.window = R.drawable.window_dark;
 		}
 	}
 
@@ -617,9 +586,11 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 	{
 		try {
 			JSONObject data = new JSONObject();
+			data.put("isAck", false);
 			data.put("action", "com.example.UPDATE_IS_HOME");
 			data.put("SSID", ParseUser.getCurrentUser().getString("SSID"));	
 			data.put("Apartment", ParseUser.getCurrentUser().getString("Apartment"));
+			data.put("Name_Apartment", ParseUser.getCurrentUser().getString("Name") + "_" + ParseUser.getCurrentUser().getString("Apartment"));
 			ParsePush push = new ParsePush();
 			push.setChannel((String)ParseUser.getCurrentUser().get("Apartment"));
 			push.setData(data);
@@ -664,16 +635,17 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 			@Override
 			public void handleMessage(Message msg) {
 				adapter.notifyDataSetChanged();
-				if(msg.what == StaticVals.NotConnected)
-				{
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							refresh();							
-						}
-					}).start(); 
-				}
-				else if(msg.what == StaticVals.Budget)
+				//				if(msg.what == StaticVals.NotConnected)
+				//				{
+				//					new Thread(new Runnable() {
+				//						@Override
+				//						public void run() {
+				//							refresh();							
+				//						}
+				//					}).start(); 
+				//				}
+				//				else 
+				if(msg.what == StaticVals.Budget)
 				{
 					if (userBudget < parseAmount - res)
 					{
@@ -684,4 +656,10 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 			}
 		};
 	}
+
+//	public class ChangeStatusReceiver extends BroadcastReceiver{
+//		@Override
+//		public void onReceive(Context context, Intent intent) {
+//
+//	}
 }

@@ -11,7 +11,7 @@
     <permission
         android:name="com.udi.permission.UDI_PERMISSION"
         android:protectionLevel="normal" />
-
+    
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -91,7 +91,7 @@
                 <action android:name="com.example.UPDATE_IS_HOME" />
             </intent-filter>
         </receiver>
-
+        
         <activity
             android:name="com.example.home.CamActivity"
             android:label="@string/title_activity_cam"

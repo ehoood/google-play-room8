@@ -53,6 +53,7 @@ import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SendCallback;
 
 public class HomeActivity extends SplitActionBarActivity implements OnSelectedListener, OnConfirmCancelListener{
@@ -116,16 +117,9 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 		//set stickynotif button onclick
 		initStickyButton();
 
-		//set all roomates to be not connected in field "IsHome"
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				setAllNotconnected();
-				refresh();
-				if(HomeActivity.this.ringProgressDialog.isShowing())
-					HomeActivity.this.ringProgressDialog.dismiss();
-			}
-		}).start();
+		// get all roomies from server
+		getRoomies(); 
+		
 		//--- send push to all apartment roommates ---//
 		sendPushAll();
 
@@ -150,14 +144,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 	@Override
 	protected void onResume() {
 		super.onResume();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				refresh();							
-			}
-		}).start();		
 		adapter.notifyDataSetChanged();
-
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -289,7 +276,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 			} 
 			else {
 				// Get the ViewHolder back to get fast access to the TextView
-				holder = (ViewHolder) convertView.getTag();//			
+				holder = (ViewHolder) convertView.getTag();			
 			}
 			holder.name.setText(data.get(position).name);
 			holder.prgBar.setVisibility(data.get(position).visibiltyProg);
@@ -310,7 +297,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 
 	}
 
-	public void refresh()
+	public void getRoomies()
 	{
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("usersAuthoirzed");
 		query.whereEqualTo("isConfirmed", true);
@@ -324,8 +311,9 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 					{
 						final HomeObj room8 = new HomeObj();
 						room8.name = user.getString("Name");
-						room8.window = R.drawable.window_dark;
 						room8.visibiltyProg = 0; //visible
+						room8.window = R.drawable.window_dark;
+
 						ParseFile imgFile = (ParseFile)user.get("pic");
 						if (imgFile!=null)
 						{
@@ -345,6 +333,9 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 						SThome.getInstance().add(room8);
 						Message msg = HomeActivity.this.mHandler.obtainMessage();
 						HomeActivity.this.mHandler.sendMessage(msg);
+
+						if(HomeActivity.this.ringProgressDialog.isShowing())
+							HomeActivity.this.ringProgressDialog.dismiss();
 					}
 				} 
 				else 
@@ -387,16 +378,14 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 					{
 						try {
 							objects.get(0).delete();
-							objects.get(0).saveInBackground();
-							findReq();
-							new Thread(new Runnable() {
+							objects.get(0).saveInBackground(new SaveCallback() {
+								
 								@Override
-								public void run() {
-									refresh();							
+								public void done(ParseException e) {
+									findReq();
 								}
-							}).start();
+							});
 						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
@@ -428,14 +417,13 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 					if(!objects.isEmpty())
 					{
 						objects.get(0).put("isConfirmed", true);
-						objects.get(0).saveInBackground();
-						findReq();
-						new Thread(new Runnable() {
+						objects.get(0).saveInBackground(new SaveCallback() {
+							
 							@Override
-							public void run() {
-								refresh();							
+							public void done(ParseException e) {
+								findReq();
 							}
-						}).start();
+						});
 					}
 					else
 					{
@@ -578,8 +566,11 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 		for(HomeObj room8 : SThome.getInstance())
 		{
 			room8.visibiltyProg = 0; //visible
-			room8.window = room8.window = R.drawable.window_dark;
+			room8.window = R.drawable.window_dark;
 		}
+		//for handler to notify adapter
+		Message msg = HomeActivity.this.mHandler.obtainMessage();
+		HomeActivity.this.mHandler.sendMessage(msg);
 	}
 
 	void sendPushAll()
@@ -605,7 +596,6 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 				}
 			});
 		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -622,7 +612,6 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 					public void run() {
 						setAllNotconnected();
 						sendPushAll();
-						refresh();							
 					}
 				}).start();
 			}
@@ -635,16 +624,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 			@Override
 			public void handleMessage(Message msg) {
 				adapter.notifyDataSetChanged();
-				//				if(msg.what == StaticVals.NotConnected)
-				//				{
-				//					new Thread(new Runnable() {
-				//						@Override
-				//						public void run() {
-				//							refresh();							
-				//						}
-				//					}).start(); 
-				//				}
-				//				else 
+				
 				if(msg.what == StaticVals.Budget)
 				{
 					if (userBudget < parseAmount - res)
@@ -656,10 +636,4 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 			}
 		};
 	}
-
-//	public class ChangeStatusReceiver extends BroadcastReceiver{
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//
-//	}
 }

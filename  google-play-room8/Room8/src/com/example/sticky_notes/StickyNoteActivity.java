@@ -204,8 +204,10 @@ public class StickyNoteActivity extends SplitActionBarActivity implements OnSele
 							today.getMonth() >= date.getMonth() && 
 							today.getDate() >= date.getDate())
 					{
-						note.alertVisiblity = 0;
+						note.alertVisiblity = 0; //visible
 					}
+					else
+						note.alertVisiblity = 4; //invisible
 				}
 				else
 				{

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/pressed_style"
         android:contentDescription="refresh"
         android:src="@drawable/home_refresh" />
@@ -19,7 +19,7 @@
         android:id="@+id/home_camBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:layout_toLeftOf="@id/home_refreshBtn"
         android:background="@drawable/pressed_style"
         android:src="@drawable/camera_icon" />
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/pressed_style"
         android:contentDescription="requests"
         android:src="@drawable/ic_6_social_person" />
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/home_requestBtn"
         android:layout_alignRight="@+id/home_requestBtn"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/notification_home"
         android:gravity="center"
         android:paddingLeft="2sp"

@@ -16,7 +16,7 @@
         android:id="@+id/add_to_cart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/pressed_style"
         android:src="@drawable/cart_add" />
@@ -25,7 +25,7 @@
         android:id="@+id/menu_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/pressed_style"
         android:src="@drawable/ic_menu_save" />
@@ -34,7 +34,7 @@
         android:id="@+id/menu_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/pressed_style"
         android:src="@drawable/ic_5_content_discard" />

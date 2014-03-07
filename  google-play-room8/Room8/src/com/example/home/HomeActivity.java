@@ -1,5 +1,6 @@
 package com.example.home;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +47,7 @@ import com.example.login.ConfirmCancelDialog;
 import com.example.login.ConfirmCancelDialog.OnConfirmCancelListener;
 import com.example.sticky_notes.StickyNoteActivity;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -74,7 +76,9 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 	int monthparse;
 	boolean firstTime = true;
 	List<ParseObject> mlistDB;
-
+	static final int REQUEST_IMAGE_CAPTURE = 1;
+	ImageView mImageView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,8 +112,7 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 		takeApic2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(HomeActivity.this, CamActivity.class);
-				startActivity(intent);
+				dispatchTakePictureIntent();
 			}
 		});
 
@@ -132,7 +135,49 @@ public class HomeActivity extends SplitActionBarActivity implements OnSelectedLi
 		handlerFunc();
 	}
 
+	private void dispatchTakePictureIntent() {
+		Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+		}
+	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+			Bundle extras = data.getExtras();
+			Bitmap imageBitmap = (Bitmap) extras.get("data");
+			mImageView = (ImageView) findViewById(R.id.imgView);
+			//mImageView.setImageBitmap(imageBitmap);
+
+			//Saving in Parse server
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] dataTostore = stream.toByteArray();
+
+
+			final ParseFile imgFile = new ParseFile ("img.png", dataTostore);
+			imgFile.saveInBackground();
+
+
+			//save pic in parse
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("usersAuthoirzed");
+			query.whereEqualTo("Name", ParseUser.getCurrentUser().get("Name"));
+			query.whereEqualTo("Apartment", ParseUser.getCurrentUser().get("Apartment"));
+			query.getFirstInBackground(new GetCallback<ParseObject>() {
+				public void done(ParseObject object, ParseException e) {
+					if (object != null) {
+						object.put("pic",imgFile);
+						object.saveInBackground();
+						finish();
+					}
+				}
+			});
+
+		}
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -40,6 +40,7 @@ public class HomeRequestsDialog extends DialogFragment{
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			// Set the dialog title
 			builder.setTitle(mDialogName);
+			builder.setCancelable(true);
 			// Specify the list array, the items to be selected by default (null for none),
 			// and the listener through which to receive call backs when items are selected
 			builder.setItems(mReqNames,

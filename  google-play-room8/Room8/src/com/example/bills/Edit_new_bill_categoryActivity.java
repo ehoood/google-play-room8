@@ -170,6 +170,37 @@ public class Edit_new_bill_categoryActivity extends Activity implements OnSelect
 
 						if(billExists)
 						{ //changes some of the fields of the category in phone memory and in server
+							if(!title.matches(STBillCategoriesArray.getInstance().get(getIntent().getIntExtra(POSITION, -1)).title))
+							{//change all the payment with the old category title to new title
+								ParseQuery<ParseObject> queryPayments = ParseQuery.getQuery("BillsPayments");
+								queryPayments.whereEqualTo("Apartment", ParseUser.getCurrentUser().getString("Apartment"));
+								queryPayments.whereEqualTo("Category", STBillCategoriesArray.getInstance().get(getIntent().getIntExtra(POSITION, -1)).title);
+								queryPayments.findInBackground(new FindCallback<ParseObject>() {
+									public void done(List<ParseObject> payments, ParseException e) 
+									{
+										if (e == null) 
+										{
+											if(payments.size() != 0)
+											{
+												for(ParseObject payment : payments)
+												{
+													payment.put("Category", titleText.getText().toString());
+													payment.saveInBackground();
+												}
+											}
+										}
+										else
+										{
+											e.printStackTrace();
+											Toast.makeText(Edit_new_bill_categoryActivity.this, 
+													getResources().getString(R.string.please_check_internet_connection), 
+													Toast.LENGTH_LONG
+													).show();
+										}
+									}
+								});
+
+							}
 							STBillCategoriesArray.getInstance().get(getIntent().getIntExtra(POSITION, -1)).title = title;
 							STBillCategoriesArray.getInstance().get(getIntent().getIntExtra(POSITION, -1)).link  = url;
 							STBillCategoriesArray.getInstance().get(getIntent().getIntExtra(POSITION, -1)).visibleTo = new ArrayList<String>(visibleToRoommates);
@@ -190,6 +221,7 @@ public class Edit_new_bill_categoryActivity extends Activity implements OnSelect
 			}
 		});
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -331,13 +363,7 @@ public class Edit_new_bill_categoryActivity extends Activity implements OnSelect
 				STBillCategoriesArray.getInstance().add(newBillCategory);
 				newBillCategoryLocation = STBillCategoriesArray.getInstance().indexOf(newBillCategory);
 			}
-		}
-
-		if(ringProgressDialog.isShowing())
-			ringProgressDialog.dismiss();
-
-		if(newBillCategory.visibleTo.contains(ParseUser.getCurrentUser().getString("Name")))
-		{
+			
 			if(nextWasClicked)
 			{
 				if(newBillCategoryLocation != -1 && newBillCategoryLocation != -2)
@@ -354,12 +380,24 @@ public class Edit_new_bill_categoryActivity extends Activity implements OnSelect
 					STBillCategoriesArray.getInstance().
 					get(getIntent().getIntExtra(POSITION, -1)).updateDate = aNew_category.getUpdatedAt();
 				}
-
+				if(ringProgressDialog.isShowing())
+					ringProgressDialog.dismiss();
 				finish();//going back to Bills Activity
 			}
 		}
 		else
-			finish();
+		{
+			if(billExists)
+			{
+				STBillCategoriesArray.getInstance().
+				get(getIntent().getIntExtra(POSITION, -1)).updateDate = aNew_category.getUpdatedAt();
+			}
+			if(ringProgressDialog.isShowing())
+				ringProgressDialog.dismiss();
+			finish();//going back to Bills Activity
+		}
+
+		
 	}
 	public void updateParse(boolean aBillExists)
 	{

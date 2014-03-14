@@ -46,6 +46,8 @@
     <string name="visible_to_names">Choose Roommate:</string>
     <string name="status">Status: </string>
     <string name="amount">Amount: </string>
+    <string name="short_time_press">Press shortly to enter payments screen </string>
+    <string name="long_time_press">Press and hold to enter edit category screen </string>
     <string name="per_roomie">Per Roomie: </string>
     <string name="duedate">Due Date: </string>
     <string name="paymentDur">Payment Dur: </string>

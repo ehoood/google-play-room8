@@ -26,10 +26,10 @@ import android.widget.Toast;
 import com.example.bills.MultiChoiceDialog.OnSelectedVisibleListener;
 import com.example.finalapp.R;
 import com.example.finalapp.SplitActionBarActivity;
+import com.example.finalapp.helpDialog;
 import com.example.home.HomeActivity;
 import com.example.home.HomeObj;
 import com.example.home.SThome;
-import com.example.sticky_notes.StickyNoteActivity;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -105,10 +105,25 @@ public class BillsActivity extends SplitActionBarActivity implements OnSelectedV
 		adapter = new CustomAdapter(this, R.layout.bill_category_item, STBillCategoriesArray.getInstance());
 		gv.setAdapter(adapter);
 
-		final ImageButton addButtonCustom = (ImageButton)findViewById(R.id.addBillCategoryBtn);
+		final ImageButton addButtonCustom  = (ImageButton)findViewById(R.id.addBillCategoryBtn);
 		final ImageButton editButtonCustom = (ImageButton)findViewById(R.id.bill_editBtn);
-		final ImageButton homeButton = (ImageButton)findViewById(R.id.home_btn_bills);
-		final Button debtBtn = (Button)findViewById(R.id.debt_btn);
+		final ImageButton homeButton       = (ImageButton)findViewById(R.id.home_btn_bills);
+		final Button debtBtn 		       = (Button)findViewById(R.id.debt_btn);
+		final ImageButton helpButton       = (ImageButton)findViewById(R.id.helpBtn);
+		
+		helpButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				helpDialog newDialog = new helpDialog();
+				Bundle args   = new Bundle();
+				args.putInt("currentActivityHelpXml", R.layout.bill_help_layout);
+				newDialog.setArguments(args);
+				
+				newDialog.show(getFragmentManager(), "new_Dialog");
+			}
+		});
 
 		debtBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -123,6 +138,7 @@ public class BillsActivity extends SplitActionBarActivity implements OnSelectedV
 				ArrayList<String> debtsStrArr = new ArrayList<String>();
 				try {
 					mdebtsRoomates = query.find();
+					
 					for(ParseObject roommate : mdebtsRoomates)
 					{
 						for(HomeObj homeRoommate : SThome.getInstance())
@@ -145,9 +161,20 @@ public class BillsActivity extends SplitActionBarActivity implements OnSelectedV
 					debts[tempIndex] = debtsStrArr.get(tempIndex);
 				}
 
-				boolean mCheckedItemsArray[] = new boolean[debts.length];
-				args.putCharSequenceArray(MultiChoiceDialog.ARG_STRING_ID,debts);
-				args.putBooleanArray(MultiChoiceDialog.Bool_Array_ID, mCheckedItemsArray);//{false,false,false} instead of mCheckedArray
+				
+				
+				if(debts.length > 0)
+				{
+					boolean mCheckedItemsArray[] = new boolean[debts.length];
+					args.putCharSequenceArray(MultiChoiceDialog.ARG_STRING_ID,debts);
+					args.putBooleanArray(MultiChoiceDialog.Bool_Array_ID, mCheckedItemsArray);//{false,false,false} instead of mCheckedArray
+				}
+				else
+				{
+					args.putString(MultiChoiceDialog.noDebts, "There are no debts between roommates");
+					args.putBoolean(MultiChoiceDialog.noDebtsFlag, true);
+				}
+				
 				args.putBoolean(MultiChoiceDialog.IsDebt, true);
 				args.putInt(MultiChoiceDialog.TitleDialogSrc, R.string.pay_debt);
 				args.putInt(MultiChoiceDialog.PositiveSrc, R.string.paid);

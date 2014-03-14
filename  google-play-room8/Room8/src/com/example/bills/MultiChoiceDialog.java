@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import com.example.finalapp.R;
 
 public class MultiChoiceDialog extends DialogFragment
 {
@@ -21,6 +18,8 @@ public class MultiChoiceDialog extends DialogFragment
 	protected static final String PositiveSrc = "PositiveSrc";
 	protected static final String NagativeSrc = "NagativeSrc";
 	protected static final String IsFromInfo = "IsFromInfo";
+	protected static final String noDebtsFlag = "noDebtsFlag";
+	protected static final String noDebts = "noDebts";
 
 	MultiChoiceDialog temp;
 	protected CharSequence[] mRoom8Name;
@@ -32,6 +31,8 @@ public class MultiChoiceDialog extends DialogFragment
 	OnSelectedVisibleListener mCallback;
 	ArrayList<String> mSelectedItems;
 	boolean mIsFromInfo;
+	boolean mNoDebtsFlag;
+	String mNoDebtsString;
 
 	public interface OnSelectedVisibleListener 
 	{
@@ -44,14 +45,17 @@ public class MultiChoiceDialog extends DialogFragment
 	{
 		try 
 		{
-			mCallback  = (OnSelectedVisibleListener)getActivity();
-			Bundle bun = getArguments();
-			mRoom8Name = bun.getCharSequenceArray(ARG_STRING_ID);
-			mCheckedItems = bun.getBooleanArray(Bool_Array_ID);
-			mtitleSrc = bun.getInt(TitleDialogSrc);
-			mposSrc = bun.getInt(PositiveSrc);
-			mnagSrc = bun.getInt(NagativeSrc);
-			mIsFromInfo = bun.getBoolean(IsFromInfo, false);
+			mCallback  	   = (OnSelectedVisibleListener)getActivity();
+			Bundle bun 	   = getArguments();
+			mRoom8Name 	   = bun.getCharSequenceArray(ARG_STRING_ID);
+			mCheckedItems  = bun.getBooleanArray(Bool_Array_ID);
+			mtitleSrc      = bun.getInt(TitleDialogSrc);
+			mposSrc        = bun.getInt(PositiveSrc);
+			mnagSrc        = bun.getInt(NagativeSrc);
+			mIsFromInfo    = bun.getBoolean(IsFromInfo, false);
+		    mNoDebtsFlag   = bun.getBoolean(noDebtsFlag, false);;
+		    mNoDebtsString = bun.getString(noDebts);
+			
 			
 			//boolean for the debt dialog
 			boolean isDebt = bun.getBoolean(IsDebt, false);
@@ -117,6 +121,11 @@ public class MultiChoiceDialog extends DialogFragment
 					mCallback.onCancelSelected(true);
 				}
 			});
+			
+			if(mNoDebtsFlag == true)// no debts, need to show a string telling that.
+			{
+				builder.setMessage(mNoDebtsString);
+			}
 			return builder.create();
 
 		}
